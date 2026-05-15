@@ -1,0 +1,21 @@
+[package]
+name = "expat-rs"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.94"
+description = "Memory-safe XML 1.0 parser, libexpat-compatible conformance"
+license = "MIT"
+repository = "https://github.com/ThomasJenkinson/expat-rs"
+readme = "README.md"
+keywords = ["xml", "parser", "expat", "memory-safety"]
+categories = ["parser-implementations"]
+
+[dependencies]
+thiserror = "1.0"
+
+[[bin]]
+name = "xmlwf"
+path = "src/bin/xmlwf.rs"
+
+[dev-dependencies]
+# minimal — conformance runner is a shell script, not a Rust dep

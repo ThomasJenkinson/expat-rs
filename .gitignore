@@ -1,0 +1,17 @@
+# Cargo build artefacts (anywhere in the tree, including project subdirs)
+target/
+**/target/
+**/*.rs.bk
+Cargo.lock.bak
+
+# Editor / OS noise
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*~
+
+# Conformance suite (downloaded externally per conformance/README.md, not committed)
+/conformance/xmlconf/
+/conformance/xmlts*.zip
+/conformance/out/

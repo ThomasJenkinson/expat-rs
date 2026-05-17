@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/ThomasJenkinson/expat-rs/actions/workflows/ci.yml/badge.svg)](https://github.com/ThomasJenkinson/expat-rs/actions/workflows/ci.yml)
 
-A Rust XML 1.0 parser. Aims for the same conformance as
+A Rust XML 1.0 (Fifth Edition) parser. Aims for the same conformance as
 [libexpat](https://github.com/libexpat/libexpat) without C's
 memory-safety bugs.
 
@@ -17,29 +17,18 @@ memory-safety bugs.
 
 A from-scratch Rust implementation of an XML 1.0 parser, designed to:
 
-1. **Pass the W3C XML Conformance Test Suite** (the same suite libexpat
-   passes — 1,801 of 1,809 tests).
-2. **Eliminate the C memory-safety bug class.** Recent libexpat CVEs
-   (e.g. CVE-2024-45491, -45492, -45493) are all integer overflows in
-   buffer math — gone by construction in Rust.
-3. **Provide a drop-in replacement** for libexpat's C ABI, so existing
-   consumers (CPython's `pyexpat`, Apache HTTPD's `mod_dav`, GNOME stack)
-   can adopt it without recompiling.
+1. **Pass the W3C XML Conformance Test Suite** (the same suite libexpat passes — 1,801 of 1,809 tests).
+2. **Eliminate an entire class of memory-safety vulnerabilities.** libexpat has a long history of CVEs spanning integer overflows (e.g. CVE-2024-45491, -45492, -45493), denial-of-service via resource exhaustion (e.g. CVE-2024-8176, CVE-2023-52425), external entity issues (e.g. CVE-2024-28757, CVE-2013-0340), and other logic-level vulnerabilities (e.g. CVE-2018-20843). Rust eliminates the memory-safety subset by construction; the remaining classes require careful implementation regardless of language.
+3. **Provide a drop-in replacement** for libexpat's C ABI, so existing consumers (CPython's `pyexpat`, Apache HTTPD's `mod_dav`, CPython's pyexpat, Apache HTTPD's mod_dav, D-Bus, fontconfig) can adopt it without recompiling.
 
 ## What this is not
 
-- **Not a translation of libexpat.** See `METHODOLOGY.md` for the clean-room
-  declaration. The implementation is built from the W3C XML 1.0 spec.
-- **Not a fork of an existing Rust XML parser.** `quick-xml`, `xml-rs`,
-  `roxmltree` exist and are good, but none target full libexpat-compatible
-  conformance (DTDs, entity expansion, namespace processing, encoding
-  detection).
+- **Not a translation of libexpat.** See `METHODOLOGY.md` for the clean-room declaration. The implementation is built from the W3C XML 1.0 Fifth Edition specification, with no contributor with no code derived from the libexpat source.
+- **Not a fork of an existing Rust XML parser.** `quick-xml`, `xml-rs`,`roxmltree` exist and are good, but none target full libexpat-compatible conformance (DTDs, entity expansion, namespace processing, encoding detection).
 
 ## Why
 
-libexpat parses XML in CPython's stdlib (`xml.parsers.expat`), Apache
-HTTPD's `mod_dav`, large parts of the GNOME stack, and many embedded
-systems. Bugs in libexpat translate directly to RCE in all of them.
+libexpat parses XML in CPython's stdlib (xml.parsers.expat), Apache HTTPD's mod_dav, D-Bus, fontconfig, CMake, and many embedded systems. Bugs in libexpat translate directly to RCE in all of them.
 Replacing it with a memory-safe parser closes that path.
 
 ## Build & test

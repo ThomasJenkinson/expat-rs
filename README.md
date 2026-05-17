@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/ThomasJenkinson/expat-rs/actions/workflows/ci.yml/badge.svg)](https://github.com/ThomasJenkinson/expat-rs/actions/workflows/ci.yml)
 
-A Rust XML 1.0 (Fifth Edition) parser. Aims for the same conformance as
+A Rust XML 1.0 (Fourth Edition) parser. Aims for the same conformance as
 [libexpat](https://github.com/libexpat/libexpat) without C's
 memory-safety bugs.
 
